@@ -6,9 +6,9 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import top.caodong0225.usst_noteboard.entity.User;
 import top.caodong0225.usst_noteboard.service.UserService;
 import top.caodong0225.usst_noteboard.service.impl.UserServiceImpl;
+import top.caodong0225.usst_noteboard.vo.UserVO;
 
 import java.io.IOException;
 
@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        UserVO user = (UserVO) request.getSession().getAttribute("user");
         if (user != null) {
             response.sendRedirect(request.getContextPath() + "/page/message");
             return;
@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        UserVO user = (UserVO) request.getSession().getAttribute("user");
         if (user != null) {
             response.sendRedirect(request.getContextPath() + "/page/message");
             return;

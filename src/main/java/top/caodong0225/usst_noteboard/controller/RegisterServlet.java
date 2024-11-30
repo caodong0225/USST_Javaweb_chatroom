@@ -5,9 +5,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import top.caodong0225.usst_noteboard.entity.User;
 import top.caodong0225.usst_noteboard.service.UserService;
 import top.caodong0225.usst_noteboard.service.impl.UserServiceImpl;
+import top.caodong0225.usst_noteboard.vo.UserVO;
 
 import java.io.IOException;
 
@@ -31,7 +31,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 若session存有user信息，那么直接跳转到留言页面，否则跳转到注册页面
-        User user = (User) request.getSession().getAttribute("user");
+        UserVO user = (UserVO) request.getSession().getAttribute("user");
         if (user != null) {
             response.sendRedirect(request.getContextPath() + "/page/message");
             return;
@@ -51,7 +51,7 @@ public class RegisterServlet extends HttpServlet {
         }
 
         try {
-            User user = userService.register(username, password);
+            UserVO user = userService.register(username, password);
             request.getSession().setAttribute("user", user);
             response.sendRedirect(request.getContextPath() + "/page/message");
         } catch (RuntimeException e) {

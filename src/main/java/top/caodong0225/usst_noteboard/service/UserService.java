@@ -1,6 +1,7 @@
 package top.caodong0225.usst_noteboard.service;
 
 import top.caodong0225.usst_noteboard.entity.User;
+import top.caodong0225.usst_noteboard.vo.UserVO;
 
 /**
  * @author jyzxc
@@ -14,7 +15,7 @@ public interface UserService {
      * @param password 密码
      * @return 是否登录成功
      */
-    User login(String username, String password);
+    UserVO login(String username, String password);
     /**
      * 注册
      *
@@ -22,5 +23,5 @@ public interface UserService {
      * @param password 密码
      * @return 是否注册成功
      */
-    User register(String username, String password) throws RuntimeException;
+    UserVO register(String username, String password) throws RuntimeException;
 }
