@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserVO register(String username, String password) throws RuntimeException {
+    public UserVO register(String username, String password) {
         try {
             boolean user = userDAO.addUser(new User(username, SafetyUtils.doBCrypt(password)));
             if (!user) {

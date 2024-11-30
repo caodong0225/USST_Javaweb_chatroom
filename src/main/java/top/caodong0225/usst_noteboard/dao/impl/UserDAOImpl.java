@@ -65,4 +65,26 @@ public class UserDAOImpl implements UserDAO {
             return false;
         }
     }
+
+    @Override
+    public User queryUserById(Integer id) throws SQLException {
+        try (Connection conn = DatabaseConnectionManager.getConnection()) {
+            final String sql = "SELECT id, username, password FROM user WHERE id = ? LIMIT 1";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password")
+                );
+            }
+
+            return null;
+        }
+    }
 }

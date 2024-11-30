@@ -26,4 +26,11 @@ public interface UserDAO {
      * @return 添加后的用户
      */
     boolean addUser(User user) throws SQLException;
+    /**
+     * 通过id查询用户
+     *
+     * @param id 用户id
+     * @return 用户
+     */
+    User queryUserById(Integer id) throws SQLException;
 }
