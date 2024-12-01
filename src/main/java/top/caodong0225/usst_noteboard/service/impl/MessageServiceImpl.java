@@ -32,7 +32,7 @@ public class MessageServiceImpl implements MessageService {
         List<MessageGeneralVO> messageGeneralVOList = new ArrayList<>();
         try {
             messageDAO.queryMessages().forEach(message -> {
-                messageGeneralVOList.add( new MessageGeneralVO(message.getTitle(),message.getCreatedAt()));
+                messageGeneralVOList.add(new MessageGeneralVO(message.getId(), message.getTitle(), message.getCreatedAt()));
             });
             return messageGeneralVOList;
         } catch (Exception e) {
@@ -66,6 +66,7 @@ public class MessageServiceImpl implements MessageService {
             }
             User creator = userDAO.queryUserById(message.getCreatedBy());
             return new MessageDetailedVO(
+                    message.getId(),
                     message.getTitle(),
                     message.getContent(),
                     message.getCreatedAt(),

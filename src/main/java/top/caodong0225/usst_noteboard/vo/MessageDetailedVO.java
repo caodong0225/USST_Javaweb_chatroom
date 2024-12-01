@@ -15,15 +15,18 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class MessageDetailedVO {
+    private final Integer id;
     private final String title;
     private final String content;
     private final LocalDateTime createdAt;
     private final UserVO createdBy;
     public MessageDetailedVO(
+            Integer id,
             String title,
             String content,
             LocalDateTime createdAt,
             UserVO createdBy) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
