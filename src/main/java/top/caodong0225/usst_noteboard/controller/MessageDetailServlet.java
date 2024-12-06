@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import top.caodong0225.usst_noteboard.service.MessageService;
 import top.caodong0225.usst_noteboard.service.impl.MessageServiceImpl;
 import top.caodong0225.usst_noteboard.vo.MessageDetailedVO;
-import top.caodong0225.usst_noteboard.vo.UserVO;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -32,12 +31,6 @@ public class MessageDetailServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserVO user = (UserVO) request.getSession().getAttribute("user");
-        if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/page/login");
-            return;
-        }
-
         String pathInfo = request.getPathInfo();
         String[] pathParts = pathInfo.split("/");
 

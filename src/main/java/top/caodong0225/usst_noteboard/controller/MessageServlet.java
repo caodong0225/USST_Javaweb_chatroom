@@ -33,13 +33,6 @@ public class MessageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserVO user = (UserVO) request.getSession().getAttribute("user");
-
-        if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/page/login");
-            return;
-        }
-
         List<MessageGeneralVO> messages = null;
         try {
             messages = messageService.listAllMessages();
@@ -54,11 +47,6 @@ public class MessageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserVO user = (UserVO) request.getSession().getAttribute("user");
-        if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/page/login");
-            return;
-        }
-
         String title = request.getParameter("title");
         String content = request.getParameter("content");
 
