@@ -86,7 +86,7 @@ public class LoginServlet extends HttpServlet {
             response.addCookie(usernameCookie);
             response.addCookie(passwordCookie);
 
-            response.sendRedirect(request.getContextPath() + "/page/message");
+            response.sendRedirect(request.getContextPath() + "/page/messages");
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/page/login.jsp").forward(request, response);

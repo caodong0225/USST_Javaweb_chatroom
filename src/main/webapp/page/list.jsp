@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="user" scope="session" type="top.caodong0225.usst_noteboard.vo.UserVO"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -31,39 +30,51 @@
             留言板
         </div>
         <div>
-            <span
-                    class="text-md text-gray-500">
-            你好, <b>${user.username}</b></span>
-            <a
-                    href="${pageContext.request.contextPath}/page/logout"
-                    class="text-md text-blue-500 hover:text-blue-700 transition-all hover:underline ml-5"
-            >登出</a>
+        <c:choose>
+            <c:when test="${user != null}">
+                <span
+                        class="text-md text-gray-500">
+                你好, <b>${user.username}</b></span>
+                <a
+                        href="${pageContext.request.contextPath}/page/logout"
+                        class="text-md text-blue-500 hover:text-blue-700 transition-all hover:underline ml-5"
+                >登出</a>
+            </c:when>
+            <c:otherwise>
+                <a
+                        href="${pageContext.request.contextPath}/page/login"
+                        class="text-md text-blue-500 hover:text-blue-700 transition-all hover:underline ml-5"
+                >请登录</a>
+            </c:otherwise>
+        </c:choose>
         </div>
     </div>
-    <div class="bg-white shadow hover:shadow-lg rounded-lg w-1/2 p-4 transition-all mt-5 w-[1024px]">
-        <h2 class="text-2xl font-medium mb-5">
-            提交留言
-        </h2>
-        <c:if test="${not empty error}">
-            <div class="bg-red-100 text-red-500 p-2 rounded-lg">
-                    ${error}
-            </div>
-        </c:if>
-        <form action="${pageContext.request.contextPath}/page/message" method="post">
-            <label>
-                <input type="text" name="title" placeholder="消息标题" required
-                       class="w-full border border-gray-300 p-2 rounded-lg mt-2 hover:shadow transition-all">
-            </label>
-            <label>
-                <textarea name="content" placeholder="消息内容" required
-                          class="w-full border border-gray-300 p-2 rounded-lg mt-2 hover:shadow transition-all"></textarea>
-            </label>
-            <button type="submit"
-                    class="bg-gray-500 text-white px-4 py-2 rounded font-medium hover:bg-gray-600 transition-all mt-5">
-                提交消息
-            </button>
-        </form>
-    </div>
+    <c:if test="${user != null}">
+        <div class="bg-white shadow hover:shadow-lg rounded-lg w-1/2 p-4 transition-all mt-5 w-[1024px]">
+            <h2 class="text-2xl font-medium mb-5">
+                提交留言
+            </h2>
+            <c:if test="${not empty error}">
+                <div class="bg-red-100 text-red-500 p-2 rounded-lg">
+                        ${error}
+                </div>
+            </c:if>
+            <form action="${pageContext.request.contextPath}/page/messages" method="post">
+                <label>
+                    <input type="text" name="title" placeholder="消息标题" required
+                           class="w-full border border-gray-300 p-2 rounded-lg mt-2 hover:shadow transition-all">
+                </label>
+                <label>
+                    <textarea name="content" placeholder="消息内容" required
+                              class="w-full border border-gray-300 p-2 rounded-lg mt-2 hover:shadow transition-all"></textarea>
+                </label>
+                <button type="submit"
+                        class="bg-gray-500 text-white px-4 py-2 rounded font-medium hover:bg-gray-600 transition-all mt-5">
+                    提交消息
+                </button>
+            </form>
+        </div>
+    </c:if>
     <div class="bg-white shadow hover:shadow-lg rounded-lg w-1/2 p-4 transition-all mt-5 w-[1024px]">
         <h2 class="text-2xl font-medium mb-5">
             消息列表

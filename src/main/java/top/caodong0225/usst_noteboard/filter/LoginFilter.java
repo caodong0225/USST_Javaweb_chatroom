@@ -12,7 +12,7 @@ import java.io.IOException;
  * @author jyzxc
  * @since 2024-12-6
  */
-@WebFilter(urlPatterns = {"/page/logout", "/page/message/*", "/page/message"})
+@WebFilter(urlPatterns = {"/page/logout", "/page/message/*"})
 public class LoginFilter implements Filter {
 
     @Override

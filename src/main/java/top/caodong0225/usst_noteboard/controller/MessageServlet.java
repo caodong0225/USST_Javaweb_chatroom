@@ -21,7 +21,7 @@ import java.util.List;
  * @author jyzxc
  * @since 2024-12-1
  */
-@WebServlet(name = "MessageServlet", value = "/page/message")
+@WebServlet(name = "MessageServlet", value = "/page/messages")
 public class MessageServlet extends HttpServlet {
     private MessageService messageService;
 
@@ -40,7 +40,6 @@ public class MessageServlet extends HttpServlet {
             request.setAttribute("error", e.getMessage());
         }
         request.setAttribute("messages", messages);
-
         request.getRequestDispatcher("/page/list.jsp").forward(request, response);
     }
 
@@ -49,6 +48,11 @@ public class MessageServlet extends HttpServlet {
         UserVO user = (UserVO) request.getSession().getAttribute("user");
         String title = request.getParameter("title");
         String content = request.getParameter("content");
+        if(user == null)
+        {
+            request.getRequestDispatcher("/page/login.jsp").forward(request, response);
+            return;
+        }
 
         if (title == null || content == null || title.trim().isEmpty() || content.trim().isEmpty()) {
             request.setAttribute("error", "消息标题或消息内容不能为空");

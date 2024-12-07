@@ -35,7 +35,7 @@ public class MessageDetailServlet extends HttpServlet {
         String[] pathParts = pathInfo.split("/");
 
         if (pathParts.length == 0) {
-            response.sendRedirect(request.getContextPath() + "/page/message");
+            response.sendRedirect(request.getContextPath() + "/page/messages");
             return;
         }
 

@@ -27,7 +27,7 @@ public class DecryptFilter implements Filter {
 
         UserVO user = (UserVO) httpRequest.getSession().getAttribute("user");
         if (user != null) {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/page/message");
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/page/messages");
             return;
         }
         if(httpRequest.getParameter("encryptedUsername")!=null){

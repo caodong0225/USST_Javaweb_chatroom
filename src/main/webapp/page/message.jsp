@@ -29,7 +29,7 @@
     <div class="bg-white shadow hover:shadow-lg rounded-lg w-1/2 p-4 transition-all mt-10 w-[1024px] flex justify-between">
         <div>
             <a
-                    href="${pageContext.request.contextPath}/page/message"
+                    href="${pageContext.request.contextPath}/page/messages"
                     class="text-md text-blue-500 hover:text-blue-700 transition-all hover:underline"
             >&lt; 返回消息列表</a>
         </div>
