@@ -30,19 +30,13 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 若session存有user信息，那么直接跳转到留言页面，否则跳转到注册页面
-        UserVO user = (UserVO) request.getSession().getAttribute("user");
-        if (user != null) {
-            response.sendRedirect(request.getContextPath() + "/page/message");
-            return;
-        }
         request.getRequestDispatcher("/page/register.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = (String) request.getAttribute("username");
+        String password = (String) request.getAttribute("password");
 
         if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
             request.setAttribute("error", "用户名或密码不能为空");

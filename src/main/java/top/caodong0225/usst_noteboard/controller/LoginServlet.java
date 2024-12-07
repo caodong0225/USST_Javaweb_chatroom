@@ -31,12 +31,6 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserVO user = (UserVO) request.getSession().getAttribute("user");
-        if (user != null) {
-            response.sendRedirect(request.getContextPath() + "/page/message");
-            return;
-        }
-
         // 自动填充用户名和密码
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -55,13 +49,8 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserVO user = (UserVO) request.getSession().getAttribute("user");
-        if (user != null) {
-            response.sendRedirect(request.getContextPath() + "/page/message");
-            return;
-        }
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = (String) request.getAttribute("username");
+        String password = (String) request.getAttribute("password");
         String rememberMe = request.getParameter("rememberMe"); // 获取记住我选项
 
         if (username == null || username.isEmpty()) {
@@ -76,7 +65,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         try {
-            user = userService.login(username, password);
+            UserVO user = userService.login(username, password);
             request.getSession().setAttribute("user", user);
 
             // 处理记住我逻辑

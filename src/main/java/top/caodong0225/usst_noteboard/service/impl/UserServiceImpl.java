@@ -4,7 +4,6 @@ import top.caodong0225.usst_noteboard.dao.UserDAO;
 import top.caodong0225.usst_noteboard.dao.impl.UserDAOImpl;
 import top.caodong0225.usst_noteboard.entity.User;
 import top.caodong0225.usst_noteboard.service.UserService;
-import top.caodong0225.usst_noteboard.util.SafetyUtils;
 import top.caodong0225.usst_noteboard.vo.UserVO;
 
 /**
@@ -23,7 +22,7 @@ public class UserServiceImpl implements UserService {
             if (user == null) {
                 throw new RuntimeException("用户未找到");
             }
-            if (!SafetyUtils.checkBCrypt(password, user.getPassword())) {
+            if (!password.equals(user.getPassword())) {
                 throw new RuntimeException("密码错误");
             }
             // 移除密码不显示在前端，保证数据安全
@@ -36,7 +35,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserVO register(String username, String password) {
         try {
-            boolean user = userDAO.addUser(new User(username, SafetyUtils.doBCrypt(password)));
+            boolean user = userDAO.addUser(new User(username, password));
             if (!user) {
                 throw new RuntimeException("用户已注册");
             }

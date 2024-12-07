@@ -29,7 +29,8 @@
         <form
                 action="${pageContext.request.contextPath}/page/register"
                 method="post"
-                class="flex flex-col pt-3">
+                class="flex flex-col pt-3"
+                onsubmit="return handleFormSubmit();">
 
             <div class="text-red-500 text-sm">
                 ${error}
@@ -39,7 +40,6 @@
             <input
                     type="text"
                     id="username"
-                    name="username"
                     placeholder="用户名"
                     class="appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight hover:shadow transition-all"
                     maxlength="20"
@@ -49,13 +49,15 @@
             <input
                     type="password"
                     id="password"
-                    name="password"
                     placeholder="密码"
                     class="appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight hover:shadow transition-all"
                     min="0"
                     max="200"
                     required
             />
+            <!-- 隐藏字段 -->
+            <input type="hidden" id="encryptedUsername" name="encryptedUsername">
+            <input type="hidden" id="encryptedPassword" name="encryptedPassword">
             <input
                     type="submit"
                     class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded cursor-pointer mt-5 transition-all"
@@ -64,5 +66,6 @@
         </form>
     </div>
 </div>
+<script src="../static/util.js"></script>
 </body>
 </html>
