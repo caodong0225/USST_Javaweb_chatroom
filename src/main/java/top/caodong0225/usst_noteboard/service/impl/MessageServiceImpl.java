@@ -12,6 +12,7 @@ import top.caodong0225.usst_noteboard.vo.MessageDetailedVO;
 import top.caodong0225.usst_noteboard.vo.MessageGeneralVO;
 import top.caodong0225.usst_noteboard.vo.UserVO;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,15 @@ public class MessageServiceImpl implements MessageService {
         List<MessageGeneralVO> messageGeneralVOList = new ArrayList<>();
         try {
             messageDAO.queryMessages().forEach(message -> {
-                messageGeneralVOList.add(new MessageGeneralVO(message.getId(), message.getTitle(), message.getCreatedAt()));
+                User creator;
+                try {
+                    creator = userDAO.queryUserById(message.getCreatedBy());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                messageGeneralVOList.add(
+                        new MessageGeneralVO(message.getId(), message.getTitle(), message.getCreatedAt(),new UserVO(creator.getId(), creator.getUsername()))
+                );
             });
             return messageGeneralVOList;
         } catch (Exception e) {

@@ -18,12 +18,15 @@ public class MessageGeneralVO {
     private final Integer id;
     private final String title;
     private final LocalDateTime createdAt;
+    private final UserVO createdBy;
     public MessageGeneralVO(
             Integer id,
             String title,
-            LocalDateTime createdAt) {
+            LocalDateTime createdAt,
+            UserVO createdBy) {
         this.id = id;
         this.title = title;
         this.createdAt = createdAt;
+        this.createdBy = createdBy;
     }
 }

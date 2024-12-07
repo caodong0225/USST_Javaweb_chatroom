@@ -87,8 +87,8 @@
                        class="flex justify-between items-center">
                         <h3 class="text-xl font-medium">
                             <span>#${message.id} ${message.title}</span>
-                            <span class="text-gray-500 text-sm">于 ${message.createdAt}提交</span>
                         </h3>
+                        <span class="ml-auto text-gray-500 text-sm">由 ${message.createdBy.username}于 ${message.createdAt}提交</span>
                     </a>
                 </li>
             </c:forEach>
