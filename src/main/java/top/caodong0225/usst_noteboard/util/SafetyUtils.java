@@ -2,6 +2,9 @@ package top.caodong0225.usst_noteboard.util;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
  *     安全工具类
@@ -46,5 +49,22 @@ public class SafetyUtils {
                 .replaceAll("'", "&#39;")
                 .replaceAll("\n", "<br/>")
                 .replaceAll("\r", "");
+    }
+
+    public static String dirtyWordFiler(String str) {
+        List<String> dirties = new ArrayList<String>();
+
+        dirties.add("你妈");
+        dirties.add("王八蛋");
+        dirties.add("二狗子");
+        dirties.add("傻逼");
+        dirties.add("操你妈");
+        dirties.add("垃圾");
+        dirties.add("狗屎");
+        dirties.add("狗日的");
+        for (String dirty : dirties) {
+            str = str.replaceAll(dirty, "***");
+        }
+        return str;
     }
 }

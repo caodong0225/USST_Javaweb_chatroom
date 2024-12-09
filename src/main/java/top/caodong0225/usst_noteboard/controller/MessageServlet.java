@@ -46,8 +46,8 @@ public class MessageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserVO user = (UserVO) request.getSession().getAttribute("user");
-        String title = request.getParameter("title");
-        String content = request.getParameter("content");
+        String title = (String) request.getAttribute("title");
+        String content = (String) request.getAttribute("content");
         if(user == null)
         {
             request.getRequestDispatcher("/page/login.jsp").forward(request, response);

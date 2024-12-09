@@ -7,7 +7,6 @@ import top.caodong0225.usst_noteboard.dao.impl.UserDAOImpl;
 import top.caodong0225.usst_noteboard.entity.Message;
 import top.caodong0225.usst_noteboard.entity.User;
 import top.caodong0225.usst_noteboard.service.MessageService;
-import top.caodong0225.usst_noteboard.util.SafetyUtils;
 import top.caodong0225.usst_noteboard.vo.MessageDetailedVO;
 import top.caodong0225.usst_noteboard.vo.MessageGeneralVO;
 import top.caodong0225.usst_noteboard.vo.UserVO;
@@ -51,10 +50,6 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public boolean addMessage(Integer userId, String title, String content) {
-        // XSS过滤
-        title = SafetyUtils.xssFilter(title);
-        content = SafetyUtils.xssFilter(content);
-
         try {
             User user = userDAO.queryUserById(userId);
             if (user == null) {
