@@ -35,7 +35,7 @@ public class MessageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<MessageGeneralVO> messages = null;
         try {
-            messages = messageService.listAllMessages();
+            messages = messageService.listAllMessages(request.getSession().getServletContext());
         } catch (SQLException e) {
             request.setAttribute("error", e.getMessage());
         }
@@ -57,7 +57,7 @@ public class MessageServlet extends HttpServlet {
         if (title == null || content == null || title.trim().isEmpty() || content.trim().isEmpty()) {
             request.setAttribute("error", "消息标题或消息内容不能为空");
             try {
-                request.setAttribute("messages", messageService.listAllMessages());
+                request.setAttribute("messages", messageService.listAllMessages(request.getSession().getServletContext()));
             } catch (SQLException e) {
                 request.setAttribute("error", e.getMessage());
             }
@@ -75,7 +75,7 @@ public class MessageServlet extends HttpServlet {
         }
 
         try {
-            request.setAttribute("messages", messageService.listAllMessages());
+            request.setAttribute("messages", messageService.listAllMessages(request.getSession().getServletContext()));
         } catch (SQLException e) {
             request.setAttribute("error", e.getMessage());
         }

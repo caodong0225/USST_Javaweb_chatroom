@@ -1,5 +1,6 @@
 package top.caodong0225.usst_noteboard.service;
 
+import jakarta.servlet.ServletContext;
 import top.caodong0225.usst_noteboard.vo.MessageDetailedVO;
 import top.caodong0225.usst_noteboard.vo.MessageGeneralVO;
 
@@ -19,7 +20,7 @@ public interface MessageService {
      *
      * @return 留言列表
      */
-    List<MessageGeneralVO> listAllMessages() throws SQLException;
+    List<MessageGeneralVO> listAllMessages(ServletContext context) throws SQLException;
     /**
      * 添加留言
      *

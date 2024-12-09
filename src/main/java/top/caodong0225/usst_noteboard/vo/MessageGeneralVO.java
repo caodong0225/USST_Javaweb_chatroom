@@ -19,14 +19,17 @@ public class MessageGeneralVO {
     private final String title;
     private final LocalDateTime createdAt;
     private final UserVO createdBy;
+    private final Boolean isOnline;
     public MessageGeneralVO(
             Integer id,
             String title,
             LocalDateTime createdAt,
-            UserVO createdBy) {
+            UserVO createdBy,
+            Boolean isOnline) {
         this.id = id;
         this.title = title;
         this.createdAt = createdAt;
         this.createdBy = createdBy;
+        this.isOnline = isOnline;
     }
 }

@@ -88,7 +88,7 @@
                         <h3 class="text-xl font-medium">
                             <span>#${message.id} ${message.title}</span>
                         </h3>
-                        <span class="ml-auto text-gray-500 text-sm">由 ${message.createdBy.username}于 ${message.createdAt}提交</span>
+                        <span class="ml-auto text-gray-500 text-sm">由 ${message.createdBy.username}于 ${message.createdAt}提交 ${message.isOnline}</span>
                     </a>
                 </li>
             </c:forEach>

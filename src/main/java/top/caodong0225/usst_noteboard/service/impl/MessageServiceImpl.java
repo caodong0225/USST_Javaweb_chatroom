@@ -1,5 +1,6 @@
 package top.caodong0225.usst_noteboard.service.impl;
 
+import jakarta.servlet.ServletContext;
 import top.caodong0225.usst_noteboard.dao.MessageDAO;
 import top.caodong0225.usst_noteboard.dao.UserDAO;
 import top.caodong0225.usst_noteboard.dao.impl.MessageDAOImpl;
@@ -7,6 +8,7 @@ import top.caodong0225.usst_noteboard.dao.impl.UserDAOImpl;
 import top.caodong0225.usst_noteboard.entity.Message;
 import top.caodong0225.usst_noteboard.entity.User;
 import top.caodong0225.usst_noteboard.service.MessageService;
+import top.caodong0225.usst_noteboard.util.ServletContextUtils;
 import top.caodong0225.usst_noteboard.vo.MessageDetailedVO;
 import top.caodong0225.usst_noteboard.vo.MessageGeneralVO;
 import top.caodong0225.usst_noteboard.vo.UserVO;
@@ -26,10 +28,12 @@ import java.util.List;
 public class MessageServiceImpl implements MessageService {
     private final MessageDAO messageDAO = new MessageDAOImpl();
     private final UserDAO userDAO = new UserDAOImpl();
+    private final ServletContextUtils servletContextUtils = new ServletContextUtils();
 
     @Override
-    public List<MessageGeneralVO> listAllMessages() {
+    public List<MessageGeneralVO> listAllMessages(ServletContext context) {
         List<MessageGeneralVO> messageGeneralVOList = new ArrayList<>();
+        System.out.println(servletContextUtils.getOnlineUsers(context));
         try {
             messageDAO.queryMessages().forEach(message -> {
                 User creator;
@@ -38,8 +42,13 @@ public class MessageServiceImpl implements MessageService {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+                UserVO userTemp = new UserVO(creator.getId(), creator.getUsername());
                 messageGeneralVOList.add(
-                        new MessageGeneralVO(message.getId(), message.getTitle(), message.getCreatedAt(),new UserVO(creator.getId(), creator.getUsername()))
+                        new MessageGeneralVO(message.getId(),
+                                message.getTitle(),
+                                message.getCreatedAt(),
+                                userTemp,
+                                servletContextUtils.getOnlineUsers(context).contains(userTemp))
                 );
             });
             return messageGeneralVOList;
