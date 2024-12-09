@@ -82,13 +82,30 @@
         <ul>
             <jsp:useBean id="messages" scope="request" type="java.util.List"/>
             <c:forEach items="${messages}" var="message">
-                <li class="p-2 hover:bg-gray-200 transition-all border-b border-gray-300">
-                    <a href="${pageContext.request.contextPath}/page/message/${message.id}"
-                       class="flex justify-between items-center">
+                <li class="p-2 hover:bg-gray-200 transition-all border-b border-gray-300 flex items-center">
+                    <!-- 消息内容部分 -->
+                    <a href="${pageContext.request.contextPath}/page/message/${message.id}" class="flex justify-between items-center flex-1 ml-3">
                         <h3 class="text-xl font-medium">
                             <span>#${message.id} ${message.title}</span>
                         </h3>
-                        <span class="ml-auto text-gray-500 text-sm">由 ${message.createdBy.username}于 ${message.createdAt}提交 ${message.isOnline}</span>
+                        <span class="ml-auto text-gray-500 text-sm">由 ${message.createdBy.username} 于 ${message.createdAt} 提交</span>
+                        <!-- 图标部分 -->
+                        <div class="relative group">
+                            <!-- 在线或离线图标 -->
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="ml-2 w-6 h-6 text-gray-500 transition-transform transform group-hover:scale-110"
+                                    fill="none"
+                                    viewBox="0 0 30 30"
+                                    stroke="currentColor">
+                                <!-- 根据 message.isOnline 动态显示图标 -->
+                                <use href="#${message.isOnline ? 'icon-online' : 'icon-offline'}" />
+                            </svg>
+                            <!-- 悬停显示的文字 -->
+                            <span class="absolute left-8 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white text-xs rounded px-2 py-1 hidden group-hover:block">
+                                    ${message.isOnline ? '在线' : '离线'}
+                            </span>
+                        </div>
                     </a>
                 </li>
             </c:forEach>
@@ -97,3 +114,17 @@
 </div>
 </body>
 </html>
+<!-- SVG 图标定义 -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <!-- 在线图标 -->
+    <symbol id="icon-online" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="green" />
+        <path d="M9 12l2 2l4 -4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <!-- 离线图标 -->
+    <symbol id="icon-offline" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="red" />
+        <line x1="8" y1="8" x2="16" y2="16" stroke="white" stroke-width="2" stroke-linecap="round" />
+        <line x1="16" y1="8" x2="8" y2="16" stroke="white" stroke-width="2" stroke-linecap="round" />
+    </symbol>
+</svg>

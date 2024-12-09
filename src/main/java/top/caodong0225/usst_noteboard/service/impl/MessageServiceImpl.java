@@ -33,7 +33,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<MessageGeneralVO> listAllMessages(ServletContext context) {
         List<MessageGeneralVO> messageGeneralVOList = new ArrayList<>();
-        System.out.println(servletContextUtils.getOnlineUsers(context));
+        List<UserVO> user = servletContextUtils.getOnlineUsers(context);
         try {
             messageDAO.queryMessages().forEach(message -> {
                 User creator;
@@ -48,7 +48,7 @@ public class MessageServiceImpl implements MessageService {
                                 message.getTitle(),
                                 message.getCreatedAt(),
                                 userTemp,
-                                servletContextUtils.getOnlineUsers(context).contains(userTemp))
+                                user.stream().anyMatch(u -> u.getId().equals(userTemp.getId())))
                 );
             });
             return messageGeneralVOList;
