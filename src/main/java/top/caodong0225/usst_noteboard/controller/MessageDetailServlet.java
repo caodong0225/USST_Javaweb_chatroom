@@ -14,8 +14,9 @@ import java.util.logging.Logger;
 
 /**
  * <p>
- *     消息详情Servlet
+ * 消息详情Servlet
  * </p>
+ *
  * @author jyzxc
  * @since 2024-12-1
  */
@@ -32,6 +33,10 @@ public class MessageDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pathInfo = request.getPathInfo();
+        if (pathInfo == null || pathInfo.isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/page/messages");
+            return;
+        }
         String[] pathParts = pathInfo.split("/");
 
         if (pathParts.length == 0) {
